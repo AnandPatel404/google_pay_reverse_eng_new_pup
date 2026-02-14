@@ -24,10 +24,19 @@ class Automation {
 	}
 	async open() {
 		try {
-			this.browser = await this.puppeteer.launch({ headless: true, args: ["--no-sandbox"] });
+			this.browser = await this.puppeteer.launch({
+				headless: true, args: [
+					'--no-sandbox',
+					'--disable-setuid-sandbox',
+					'--disable-blink-features=AutomationControlled',
+					'--start-maximized',
+					'--disable-web-security',
+				]
+			});
 			this.page = await this.browser.newPage();
 			await this.page.setCookie(...this.cookies);
 			await this.page.goto(`https://pay.google.com/g4b/u/4/transactions/${this.transaction_unique_id}`, { waitUntil: 'networkidle2' });
+			await this.page.screenshot({ path: 'open.png' });
 		} catch (error) {
 			new UserError(error.message || "Something went wrong.", error.user_message || "Something went wrong.", error.code)
 		}
@@ -36,7 +45,7 @@ class Automation {
 		try {
 			let details = null;
 			const table = await this.page.$(`.CtOYUe`);
-			if(table){
+			if (table) {
 				details = await table.evaluate(el => el.innerHTML)
 			}
 			this.lastCheck = new Date();
@@ -48,6 +57,7 @@ class Automation {
 	async reloadPage() {
 		try {
 			await this.page.reload({ waitUntil: 'networkidle2' });
+			await this.page.screenshot({ path: 'reload.png' });
 		} catch (error) {
 			new UserError(error.message || "Something went wrong.", error.user_message || "Something went wrong.", error.code)
 		}
