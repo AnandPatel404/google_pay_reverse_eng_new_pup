@@ -24,7 +24,7 @@ class Automation {
 	}
 	async open() {
 		try {
-			this.browser = await this.puppeteer.launch({ headless: true });
+			this.browser = await this.puppeteer.launch({ headless: true, args: ["--no-sandbox"] });
 			this.page = await this.browser.newPage();
 			await this.page.setCookie(...this.cookies);
 			await this.page.goto(`https://pay.google.com/g4b/u/4/transactions/${this.transaction_unique_id}`, { waitUntil: 'networkidle2' });
