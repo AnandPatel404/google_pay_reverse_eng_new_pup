@@ -1,0 +1,15 @@
+{
+	"apps": [
+		{
+			"name": "google_pay_puppeteer",
+			"script": "bin/www.js",
+			"exec_mode": "fork",
+			"exec_interpreter": "node",
+			"watch": false,
+			"time": true,
+			"env": {
+				"NODE_ENV": "production"
+			}
+		}
+	]
+}

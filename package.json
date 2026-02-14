@@ -1,0 +1,19 @@
+{
+  "name": "test-google-pay",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node ./bin/www.js",
+    "debug": "cross-env DEBUG=app:*,server:*,test-google-pay:*  nodemon www.js"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "cross-env": "^10.1.0",
+    "debug": "~2.6.9",
+    "dotenv": "^17.3.1",
+    "express": "~4.16.1",
+    "morgan": "~1.9.1",
+    "puppeteer": "^24.37.3"
+  }
+}
